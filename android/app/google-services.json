@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "305272197162",
+    "project_id": "depitasks-c1aaa",
+    "storage_bucket": "depitasks-c1aaa.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:305272197162:android:c0382984228aa089147353",
+        "android_client_info": {
+          "package_name": "com.example.note_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDAotXmdbkm6hwO0egyM3bR_bE7XYlxWzE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
