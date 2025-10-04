@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/controllers/edit_note_cubit/edit_note_cubit.dart';
@@ -11,6 +12,7 @@ import '../../models/note_model.dart';
 
 class EditNoteScreen extends StatefulWidget {
   final NoteModel noteModel;
+
   const EditNoteScreen({super.key, required this.noteModel});
 
   @override
@@ -85,22 +87,38 @@ class _EditNoteScreenState extends State<EditNoteScreen> {
             ),
 
             const SizedBox(height: 20),
-            CustomButton(
-              onPressed: () {
-                if (_formKey.currentState!.validate()) {
-                  widget.noteModel.noteTitle = titleController.text;
-                  widget.noteModel.noteDisc = descController.text;
-                  context.read<EditNoteCubit>().editModel(widget.noteModel);
+            BlocConsumer<EditNoteCubit, EditNoteState>(
+              listener: (context, state) {
+                if (state is EditNoteSuccess) {
                   context.read<GetNotesCubit>().getNotes();
                   Navigator.pop(context);
                 }
               },
-              centerWidget: CustomText(
-                data: "Save",
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-              ),
-              backGroundColor: AppColors.buttonBackGround,
+              builder: (context, state) {
+                print(state);
+                return CustomButton(
+                  onPressed: state is! EditNoteLoading
+                      ? () {
+                          if (_formKey.currentState!.validate()) {
+                            print("rere");
+                            widget.noteModel.noteTitle = titleController.text;
+                            widget.noteModel.noteDisc = descController.text;
+                            context.read<EditNoteCubit>().editModel(
+                              widget.noteModel,
+                            );
+                          }
+                        }
+                      : () {},
+                  centerWidget: state is! EditNoteLoading
+                      ? CustomText(
+                          data: "Save",
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        )
+                      : CupertinoActivityIndicator(),
+                  backGroundColor: AppColors.buttonBackGround,
+                );
+              },
             ),
           ],
         ),

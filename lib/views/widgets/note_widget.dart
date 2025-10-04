@@ -33,7 +33,6 @@ class NoteWidget extends StatelessWidget {
               backgroundColor: AppColors.buttonBackGround,
             ),
           );
-          context.read<GetNotesCubit>().deleteLocal(noteModel);
         }
       },
       builder: (context, state) {
@@ -69,8 +68,11 @@ class NoteWidget extends StatelessWidget {
                   ),
                   const Spacer(),
                   GestureDetector(
-                    onTap: () {
-                      context.read<DeleteNoteCubit>().deleteNote(noteModel);
+                    onTap: () async {
+                      await context.read<DeleteNoteCubit>().deleteNote(
+                        noteModel,
+                      );
+                      context.read<GetNotesCubit>().deleteLocal(noteModel);
                     },
                     child: Icon(Icons.delete, color: AppColors.textPrimary),
                   ),

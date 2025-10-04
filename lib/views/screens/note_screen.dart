@@ -5,6 +5,8 @@ import 'package:note_app/helpers/widgets/custom_app_bar.dart';
 import 'package:note_app/helpers/widgets/custom_text.dart';
 import 'package:note_app/models/note_model.dart';
 
+import 'edit_note_screen.dart';
+
 class NoteScreen extends StatelessWidget {
   const NoteScreen({super.key, required this.noteModel});
   final NoteModel noteModel;
@@ -61,80 +63,6 @@ class NoteScreen extends StatelessWidget {
               fontSize: 14,
               fontWeight: FontWeight.w400,
               color: AppColors.textSec,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class EditNoteScreen extends StatefulWidget {
-  final NoteModel noteModel;
-  const EditNoteScreen({super.key, required this.noteModel});
-
-  @override
-  State<EditNoteScreen> createState() => _EditNoteScreenState();
-}
-
-class _EditNoteScreenState extends State<EditNoteScreen> {
-  late TextEditingController titleController;
-  late TextEditingController descController;
-
-  @override
-  void initState() {
-    super.initState();
-    titleController = TextEditingController(text: widget.noteModel.noteTitle);
-    descController = TextEditingController(text: widget.noteModel.noteDisc);
-  }
-
-  @override
-  void dispose() {
-    titleController.dispose();
-    descController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar(
-        pre: GestureDetector(
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: Icon(Icons.arrow_back, color: AppColors.textPrimary),
-        ),
-        center: CustomText(
-          data: "Edit Note",
-          fontSize: 18,
-          fontWeight: FontWeight.w700,
-        ),
-      ),
-      backgroundColor: AppColors.backGroundColor,
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            TextField(
-              controller: titleController,
-              decoration: const InputDecoration(labelText: "Title"),
-            ),
-            const SizedBox(height: 10),
-            TextField(
-              controller: descController,
-              decoration: const InputDecoration(labelText: "Description"),
-              maxLines: 5,
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                // 🔹 هنا هتحط كود الـ update Firestore أو Cubit
-                // widget.noteModel.noteTitle = titleController.text;
-                // widget.noteModel.noteDisc = descController.text;
-                Navigator.pop(context);
-              },
-              child: const Text("Save"),
             ),
           ],
         ),

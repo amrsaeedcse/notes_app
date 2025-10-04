@@ -97,8 +97,10 @@ class _CreateNoteScreenState extends State<CreateNoteScreen> {
                   return CustomButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
+                        print("jdsds");
                         context.read<AddNoteCubit>().addNote(
                           NoteModel(
+                            id: "",
                             time: Timestamp.now(),
                             noteTitle: noteDisc.text.trim(),
                             noteDisc: noteTitle.text.trim(),
